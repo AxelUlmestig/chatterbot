@@ -1,0 +1,3 @@
+watson/watson_auth.py
+*.pyc
+*.swp
