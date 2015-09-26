@@ -1,3 +1,4 @@
 watson/watson_auth.py
 *.pyc
 *.swp
+.DS_store
