@@ -6,3 +6,5 @@ applications:
   name: chatterbot-state
   host: chatterbot-state
   disk_quota: 1024M
+  services:
+  - Relationship Extraction-0y
