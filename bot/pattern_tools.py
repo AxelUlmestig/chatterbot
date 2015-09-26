@@ -19,17 +19,19 @@ def find_node(tree, criteria):
 			return descendent_match
 	return None
 
-def match_POS(POS):
-	def match(node):
-		return node.POS == POS
-	return match
+def match_POS(*POS):
+	return create_match_template("POS", *POS)
 
-def match_gram(grammatical_function):
-	def match(node):
-		return node.grammatical_function == grammatical_function
-	return match
+def match_gram(*grammatical_function):
+	return create_match_template("grammatical_function", *grammatical_function)
 
-def match_word(word):
-	def match(node):
-		return node.word == word
-	return match
+def match_word(*word):
+	return create_match_template("word", *word)
+
+def create_match_template(attribute, *keys):
+	def match_template(node):
+		for key in keys:
+			if getattr(node, attribute) == key:
+				return True
+		return False
+	return match_template
