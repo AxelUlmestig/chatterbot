@@ -1,15 +1,23 @@
 import requests
 import json
-from watson.watson_auth import re_auth
-cred = re_auth
+import os
 
 url = "https://gateway.watsonplatform.net/relationship-extraction-beta/api/v1/sire/0"
 data = {"sid": "ie-en-news", "rt": "json"}
 
+auth = None
+vcap_json = os.environ.get('VCAP_SERVICES', None)
+if vcap_json:
+	vcap = json.loads(vcap_json)
+	cred = vcap["relationship_extraction"][0]["credentials"]
+	auth = (cred["username"], cred["password"])
+else:
+	from watson.watson_auth import re_auth
+	auth = re_auth
 
 def call_watson(txt):
 	data["txt"] = txt
-	r = requests.post(url, data=data, auth=cred)
+	r = requests.post(url, data=data, auth=auth)
 	if r.status_code is not 200:
 		print("error with Watson API")
 		#TODO raise exception
