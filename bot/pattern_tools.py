@@ -31,7 +31,7 @@ def match_word(*word):
 def create_match_template(attribute, *keys):
 	def match_template(node):
 		for key in keys:
-			if getattr(node, attribute) == key:
+			if getattr(node, attribute).lower() == key.lower():
 				return True
 		return False
 	return match_template
