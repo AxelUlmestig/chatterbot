@@ -25,4 +25,4 @@ def execute_action(knowledge, name, wh_pronoun):
 	return None	
 
 
-pattern = pt.create_template(match_pattern, execute_action)
+pattern = pt.create_pattern(execute_action, match_pattern)

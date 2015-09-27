@@ -13,5 +13,5 @@ def execute_action(knowledge, noun, adjective):
 	response = "I see. "
 	return response
 
-pattern = pt.create_template(match_pattern, execute_action)
+pattern = pt.create_pattern(execute_action, match_pattern)
 

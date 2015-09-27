@@ -9,4 +9,4 @@ def match_pattern(tree):
 def execute_action(knowledge, greeting):
 	return greeting
 
-pattern = pt.create_template(match_pattern, execute_action)
+pattern = pt.create_pattern(execute_action, match_pattern)

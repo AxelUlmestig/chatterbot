@@ -1,12 +1,12 @@
-def create_template(match_pattern, execute_action):
+def create_pattern(execute_action, *match_patterns):
 	def match_template(sentence, knowledge):
-		key_content = match_pattern(sentence)
-		if key_content:
-			response = execute_action(knowledge, **key_content)
-			return response
+		for match_pattern in match_patterns:
+			key_content = match_pattern(sentence)
+			if key_content:
+				response = execute_action(knowledge, **key_content)
+				return response
 		return None
 	return match_template
-
 
 def find_node(tree, criteria):
 	if not tree:
