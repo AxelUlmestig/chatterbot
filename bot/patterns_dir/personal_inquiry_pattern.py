@@ -22,7 +22,7 @@ def execute_action(knowledge, name, wh_pronoun):
 			else:
 				response += ", "
 		return response
-	return "I don't know. Why don't you tell me?"
+	return None	
 
 
 pattern = pt.create_template(match_pattern, execute_action)
