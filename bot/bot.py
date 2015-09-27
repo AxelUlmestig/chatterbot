@@ -32,7 +32,7 @@ def format_question_answers(answers):
 		return "I don't know"
 	output_string = ""
 	for answer in answers:
-		output_string += answer
+		output_string += (" " + answer)
 	return(output_string)
 
 def format_stmt_answers(answers):
