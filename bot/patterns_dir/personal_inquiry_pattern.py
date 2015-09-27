@@ -1,15 +1,22 @@
 import bot.pattern_tools as pt
 
-def match_pattern(tree):
+def match_pattern1(tree):
 	if not tree.is_question():
 		return None
 	name = pt.find_node(tree, pt.match_POS("NNP"))
 	wh_pronoun = pt.find_node(tree, pt.match_POS("WP"))
 	if name and wh_pronoun:
-		return {"name": name.word, "wh_pronoun": wh_pronoun.word}
+		return {"name": name.word}
 	return None
 
-def execute_action(knowledge, name, wh_pronoun):
+def match_pattern2(tree):
+	tell = pt.find_node(tree, pt.match_word("tell"))
+	person = pt.find_node(tell, pt.match_POS("NNP"))
+	about = pt.find_node(person, pt.match_word("about"))
+	if about:
+		return {"name": person.word}
+
+def execute_action(knowledge, name):
 	personal_knowledge = knowledge.get_personal_info(name)
 	if personal_knowledge:
 		response = name + " is "
@@ -25,4 +32,4 @@ def execute_action(knowledge, name, wh_pronoun):
 	return None	
 
 
-pattern = pt.create_pattern(execute_action, match_pattern)
+pattern = pt.create_pattern(execute_action, match_pattern1, match_pattern2)
