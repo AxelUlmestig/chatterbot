@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from bot import Bot
+import os
 
 app = Flask(__name__)
 b = Bot()
@@ -17,6 +18,7 @@ def tell():
 		response = b.tell(stmt)
 	return response
 
-if __name__ == "__main__":
-	app.run()
+port = int(os.getenv("VCAP_APP_PORT", "5000"))
+host = os.getenv("VCAP_APP_HOST", "localhost")
+app.run(port=port, host=host)
 
