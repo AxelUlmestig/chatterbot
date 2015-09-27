@@ -9,12 +9,10 @@ def match_pattern1(tree):
 	return None
 
 def match_pattern2(tree):
-	#return None #TODO fix problem
 	tell = pt.find_node(tree, pt.match_word("tell"))
 	watson = pt.find_node(tell, pt.match_word("Watson"))
 	about = pt.find_node(watson, pt.match_word("about"))
 	if about:
-		print(about)
 		return {"watson": watson.word}
 	return None
 
