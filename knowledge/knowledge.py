@@ -2,6 +2,7 @@
 class Knowledge:
 	def __init__(self):
 		self.proper_nouns = {}
+		self.items = self.proper_nouns.items
 
 	def add_personal_info(self, name, info):
 		if name not in self.proper_nouns:
