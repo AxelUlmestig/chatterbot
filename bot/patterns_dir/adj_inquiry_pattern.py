@@ -16,17 +16,17 @@ def execute_action(knowledge, adjective):
 			if person_adj.lower() == adjective.lower():
 				people.append(person)
 	
+	response = "No one."
 	if people:
-		message = ""
+		response = ""
 		for index, person in enumerate(people):
-			message += person
+			response += person
 			if len(people) - index is 1:
-				message += "."
+				response += "."
 			elif len(people) - index is 2:
-				message += " and "
+				response += " and "
 			else:
-				message += ", " 
-		return message
-	return "No one"
+				response += ", " 
+	return response
 
 pattern = pt.create_pattern(execute_action, match_pattern)
