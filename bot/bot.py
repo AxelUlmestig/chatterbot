@@ -29,7 +29,7 @@ def get_answers(statements, knowledge, format_answers):
 
 def format_question_answers(answers):
 	if not answers:
-		return "I don't know"
+		return "I don't know."
 	output_string = ""
 	for answer in answers:
 		output_string += (" " + answer)
@@ -37,5 +37,5 @@ def format_question_answers(answers):
 
 def format_stmt_answers(answers):
 	if not answers:
-		return "Ok"
+		return "Ok."
 	return random.choice(answers)
