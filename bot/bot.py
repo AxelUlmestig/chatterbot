@@ -33,7 +33,7 @@ def format_question_answers(answers):
 	output_string = ""
 	for answer in answers:
 		output_string += (" " + answer)
-	return(output_string)
+	return(output_string[1:])
 
 def format_stmt_answers(answers):
 	if not answers:
