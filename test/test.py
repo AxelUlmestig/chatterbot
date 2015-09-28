@@ -84,11 +84,11 @@ class BotTests(unittest.TestCase):
 		bot_input1 = "Lorentz is cute"
 		bot_input2 = "Brandon is cute"
 		bot_input3 = "who is cute?"
-		expected_response = "Lorentz and Brandon."
 		bot.tell(bot_input1)
 		bot.tell(bot_input2)
 		response = bot.tell(bot_input3)
-		self.assertEqual(response, expected_response)
+		self.assertIn("Lorentz", response)
+		self.assertIn("Brandon", response)
 		
 if __name__ == '__main__':
 	unittest.main()
