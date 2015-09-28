@@ -10,7 +10,7 @@ def match_pattern(tree):
 
 def execute_action(knowledge, noun, adjective):
 	knowledge.add_personal_info(noun, adjective)
-	response = "I see. "
+	response = "I see."
 	return response
 
 pattern = pt.create_pattern(execute_action, match_pattern)
