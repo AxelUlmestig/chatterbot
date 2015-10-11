@@ -1,9 +1,10 @@
+from knowledge.load_initial_knowledge import load_initial_knowledge 
 
 class Knowledge:
 	def __init__(self):
 		self.proper_nouns = {}
 		self.items = self.proper_nouns.items
-		add_initial_knowledge(self)
+		load_initial_knowledge(self)
 
 	def add_personal_info(self, name, info):
 		name = name.title()
@@ -18,5 +19,3 @@ class Knowledge:
 			return self.proper_nouns[name]
 		return None
 
-def add_initial_knowledge(knowledge):
-	pass #TODO implement
