@@ -1,6 +1,15 @@
 import unittest
 from bot.bot import Bot
 
+class InitialKnowledgeTests(unittest.TestCase):
+
+	def test_watson_knowledge(self):
+		bot = Bot()
+		bot_input = "tell me about Watson"
+		expected_response = "Watson is the solution to all of humanity's problems."
+		response = bot.tell(bot_input)
+		self.assertEqual(response, expected_response)
+
 class PatternTests(unittest.TestCase):
 	
 	def test_random_statement(self):
