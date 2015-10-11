@@ -1,6 +1,27 @@
 import unittest
 from bot.bot import Bot
+from knowledge.knowledge import Knowledge
 from watson.sentence_tree import trees_from_text 
+
+class KnowledgeTests(unittest.TestCase):
+
+	def test_add_personal_info(self):
+		knowledge = Knowledge()
+		name = "David"
+		info = "cute"
+		knowledge.add_personal_info(name, info)
+		name_info = knowledge.get_personal_info(name)
+		self.assertIn(info, name_info)
+
+	def test_remove_personal_info(self):
+		knowledge = Knowledge()
+		name = "David"
+		info = "cute"
+		knowledge.add_personal_info(name, info)
+		knowledge.remove_personal_info(name, info)
+		name_info = knowledge.get_personal_info(name)
+		self.assertNotIn(info, name_info)
+		
 
 class SentenceTreeTests(unittest.TestCase):
 
@@ -48,29 +69,49 @@ class PatternTests(unittest.TestCase):
 
 	def test_adj_noun(self):
 		bot = Bot()
-		bot_input = "Lorentz is green"
+		bot_input = "David is cute"
 		expected_response = "I see."
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 
+	def test_adj_noun_negated(self):
+		bot = Bot()
+		bot_input = "David is not cute"
+		expected_response = "I see."
+		response = bot.tell(bot_input)
+		self.assertEqual(response, expected_response)
+
+	def test_adj_removal(self):
+		bot = Bot()
+		bot_input1 = "David is cute"
+		bot_input2 = "David is sweet"
+		bot_input3 = "David is not cute"
+		bot_input4 = "is David cute?"
+		expected_response = "Not to my knowledge."
+		bot.tell(bot_input1)
+		bot.tell(bot_input2)
+		bot.tell(bot_input3)
+		response = bot.tell(bot_input4)
+		self.assertEqual(response, expected_response)
+
 	def test_personal_inquiry1(self):
 		bot = Bot()
-		bot_input = "who is Lorentz?"
+		bot_input = "who is David?"
 		expected_response = "I don't know."
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 
 	def test_personal_inquiry2(self):
 		bot = Bot()
-		bot_input = "tell me about Lorentz?"
+		bot_input = "tell me about David?"
 		expected_response = "Who is that?"
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 
 	def test_personal_inquiry3(self):
 		bot = Bot()
-		bot_input1 = "Lorentz is cute."
-		bot_input2 = "who is Lorentz?"
+		bot_input1 = "David is cute."
+		bot_input2 = "who is David?"
 		expected_response = bot_input1
 		bot.tell(bot_input1)
 		response = bot.tell(bot_input2)
@@ -78,9 +119,9 @@ class PatternTests(unittest.TestCase):
 
 	def test_personal_inquiry4(self):
 		bot = Bot()
-		bot_input1 = "Lorentz is cute."
-		bot_input2 = "tell me about Lorentz?"
-		expected_response = "Lorentz is cute."
+		bot_input1 = "David is cute."
+		bot_input2 = "tell me about David?"
+		expected_response = "David is cute."
 		bot.tell(bot_input1)
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
@@ -94,28 +135,28 @@ class PatternTests(unittest.TestCase):
 
 	def test_adj_inquiry2(self):
 		bot = Bot()
-		bot_input1 = "Lorentz is cute"
+		bot_input1 = "David is cute"
 		bot_input2 = "who is cute?"
-		expected_response = "Lorentz."
+		expected_response = "David."
 		bot.tell(bot_input1)
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
 
 	def test_adj_inquiry3(self):
 		bot = Bot()
-		bot_input1 = "Lorentz is cute"
+		bot_input1 = "David is cute"
 		bot_input2 = "Brandon is cute"
 		bot_input3 = "who is cute?"
 		bot.tell(bot_input1)
 		bot.tell(bot_input2)
 		response = bot.tell(bot_input3)
-		self.assertIn("Lorentz", response)
+		self.assertIn("David", response)
 		self.assertIn("Brandon", response)
 		
 	def test_person_adj_inquiry_true(self):
 		bot = Bot()
-		bot_input1 = "Lorentz is cute"
-		bot_input2 = "is Lorentz cute?"
+		bot_input1 = "David is cute"
+		bot_input2 = "is David cute?"
 		expected_response = "Yes."
 		bot.tell(bot_input1)
 		response = bot.tell(bot_input2)
@@ -123,15 +164,15 @@ class PatternTests(unittest.TestCase):
 
 	def test_person_adj_inquiry_unknown(self):
 		bot = Bot()
-		bot_input = "is Lorentz cute?"
-		expected_response = "I don't know who Lorentz is."
+		bot_input = "is David cute?"
+		expected_response = "I don't know who David is."
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 
 	def test_person_adj_inquiry_false(self):
 		bot = Bot()
-		bot_input1 = "Lorentz is sweet"
-		bot_input2 = "is Lorentz cute?"
+		bot_input1 = "David is sweet"
+		bot_input2 = "is David cute?"
 		expected_response = "Not to my knowledge."
 		bot.tell(bot_input1)
 		response = bot.tell(bot_input2)
