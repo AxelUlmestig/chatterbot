@@ -13,6 +13,14 @@ class Knowledge:
 		person = self.proper_nouns[name]
 		person.add(info)
 
+	def remove_personal_info(self, name, info):
+		name = name.title()
+		if name not in self.proper_nouns:
+			return
+		person = self.proper_nouns[name]
+		if info in person:
+			person.remove(info)
+
 	def get_personal_info(self, name):
 		name = name.title()
 		if name in self.proper_nouns:
