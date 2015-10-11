@@ -11,7 +11,7 @@ def match_pattern(tree):
 
 def execute_action(knowledge, adjective):
 	people = []
-	for person, adjectives in knowledge.items():
+	for person, adjectives in knowledge.people.items():
 		for person_adj in adjectives:
 			if person_adj.lower() == adjective.lower():
 				people.append(person)

@@ -2,28 +2,27 @@ from knowledge.load_initial_knowledge import load_initial_knowledge
 
 class Knowledge:
 	def __init__(self):
-		self.proper_nouns = {}
-		self.items = self.proper_nouns.items
+		self.people = {}
 		load_initial_knowledge(self)
 
 	def add_personal_info(self, name, info):
 		name = name.title()
-		if name not in self.proper_nouns:
-			self.proper_nouns[name] = set()
-		person = self.proper_nouns[name]
+		if name not in self.people:
+			self.people[name] = set()
+		person = self.people[name]
 		person.add(info)
 
 	def remove_personal_info(self, name, info):
 		name = name.title()
-		if name not in self.proper_nouns:
+		if name not in self.people:
 			return
-		person = self.proper_nouns[name]
+		person = self.people[name]
 		if info in person:
 			person.remove(info)
 
 	def get_personal_info(self, name):
 		name = name.title()
-		if name in self.proper_nouns:
-			return self.proper_nouns[name]
+		if name in self.people:
+			return self.people[name]
 		return None
 
