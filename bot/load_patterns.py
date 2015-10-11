@@ -4,7 +4,7 @@ from importlib import import_module
 parent_dir = "bot."
 if __name__ == "__main__": #debugging
 	parent_dir = ""
-pattern_dir = "patterns_dir"
+pattern_dir = "patterns"
 parent_path = parent_dir + pattern_dir + "."
 
 path = dirname(realpath(__file__))+"/" + pattern_dir + "/*.py"
