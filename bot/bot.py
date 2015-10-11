@@ -1,7 +1,7 @@
 import random
 from knowledge import Knowledge
 from watson import trees_from_text
-from bot.patterns import patterns
+from bot.load_patterns import patterns
 
 class Bot:
 
