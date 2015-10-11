@@ -24,7 +24,7 @@ class SentenceTree:
 				return True
 		return False
 
-def string_to_trees(sentence_string):
+def _string_to_trees(sentence_string):
 	words = sentence_string.split()
 	current_node = {}
 	trees = []
@@ -44,7 +44,7 @@ def string_to_trees(sentence_string):
 			trees.append((st, dependency))
 	return trees
 
-def compile_tree_list(trees):
+def _compile_tree_list(trees):
 	root = None
 	for pair in trees:
 		tree = pair[0]
@@ -60,7 +60,7 @@ def trees_from_text(text):
 	sentences = call_watson(text)
 	trees = []
 	for sentence in sentences:
-		unconnected_trees = string_to_trees(sentence)
-		tree = compile_tree_list(unconnected_trees)
+		unconnected_trees = _string_to_trees(sentence)
+		tree = _compile_tree_list(unconnected_trees)
 		trees.append(tree)
 	return trees
