@@ -112,6 +112,32 @@ class PatternTests(unittest.TestCase):
 		self.assertIn("Lorentz", response)
 		self.assertIn("Brandon", response)
 		
+	def test_person_adj_inquiry_true(self):
+		bot = Bot()
+		bot_input1 = "Lorentz is cute"
+		bot_input2 = "is Lorentz cute?"
+		expected_response = "Yes."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
+	def test_person_adj_inquiry_unknown(self):
+		bot = Bot()
+		bot_input = "is Lorentz cute?"
+		expected_response = "I don't know who Lorentz is."
+		response = bot.tell(bot_input)
+		self.assertEqual(response, expected_response)
+
+	def test_person_adj_inquiry_false(self):
+		bot = Bot()
+		bot_input1 = "Lorentz is sweet"
+		bot_input2 = "is Lorentz cute?"
+		expected_response = "Not to my knowledge."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
+
 if __name__ == '__main__':
 	unittest.main()
 
