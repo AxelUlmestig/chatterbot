@@ -24,6 +24,12 @@ class SentenceTree:
 				return True
 		return False
 
+	def is_negated(self):
+		for child in self.children:
+			if child.grammatical_function == "neg":
+				return True
+		return False
+
 def _string_to_trees(sentence_string):
 	words = sentence_string.split()
 	current_node = {}
