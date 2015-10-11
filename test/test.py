@@ -1,5 +1,18 @@
 import unittest
 from bot.bot import Bot
+from watson.sentence_tree import trees_from_text 
+
+class SentenceTreeTests(unittest.TestCase):
+
+	def test_is_negated_true(self):
+		text = "not bad"
+		tree = trees_from_text(text)[0]
+		self.assertTrue(tree.is_negated())
+
+	def test_is_negated_false(self):
+		text = "bad"
+		tree = trees_from_text(text)[0]
+		self.assertFalse(tree.is_negated())
 
 class InitialKnowledgeTests(unittest.TestCase):
 
