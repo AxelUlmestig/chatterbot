@@ -1,7 +1,7 @@
 import unittest
 from bot.bot import Bot
 
-class BotTests(unittest.TestCase):
+class PatternTests(unittest.TestCase):
 	
 	def test_random_statement(self):
 		bot = Bot()
