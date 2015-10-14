@@ -8,6 +8,24 @@ from watson.sentence_tree import trees_from_text
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
 
+class AdjectiveTests(unittest.TestCase):
+
+	def test_constructor(self):
+		sentence = "nice"
+		tree = trees_from_text(sentence)[0]
+		expected_result = sentence
+		adj = Adjective(tree)
+		self.assertEqual(adj.__str__(), expected_result)
+
+	def test_negation(self):
+		sentence = "not nice"
+		tree = trees_from_text(sentence)[0]
+		expected_result = sentence
+		adj = Adjective(tree)
+		self.assertEqual(adj.__str__(), expected_result)
+
+suite.addTests(loader.loadTestsFromTestCase(AdjectiveTests))
+
 class KnowledgeTests(unittest.TestCase):
 
 	def test_add_personal_info(self):
