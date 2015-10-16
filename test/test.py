@@ -24,6 +24,32 @@ class AdjectiveTests(unittest.TestCase):
 		adj = Adjective(tree)
 		self.assertEqual(adj.__str__(), expected_result)
 
+	def test_equal_true1(self):
+		sentence = "not nice"
+		tree1 = trees_from_text(sentence)[0]
+		tree2 = trees_from_text(sentence)[0]
+		adj1 = Adjective(tree1)
+		adj2 = Adjective(tree2)
+		self.assertEqual(adj1, adj2)
+
+	def test_equal_true2(self):
+		sentence1 = "not nice"
+		sentence2 = "nice"
+		tree1 = trees_from_text(sentence1)[0]
+		tree2 = trees_from_text(sentence2)[0]
+		adj1 = Adjective(tree1)
+		adj2 = Adjective(tree2)
+		self.assertEqual(adj1, adj2)
+
+	def test_not_equal(self):
+		sentence1 = "awesome"
+		sentence2 = "nice"
+		tree1 = trees_from_text(sentence1)[0]
+		tree2 = trees_from_text(sentence2)[0]
+		adj1 = Adjective(tree1)
+		adj2 = Adjective(tree2)
+		self.assertNotEqual(adj1, adj2)
+
 suite.addTests(loader.loadTestsFromTestCase(AdjectiveTests))
 
 class KnowledgeTests(unittest.TestCase):
