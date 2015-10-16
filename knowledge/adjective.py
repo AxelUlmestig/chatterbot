@@ -13,3 +13,6 @@ class Adjective:
 		if self.negated:
 			output = "not " + output
 		return output
+
+	def __eq__(self, other):
+		return self.word == other.word
