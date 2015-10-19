@@ -3,10 +3,48 @@ from concurrencytest import ConcurrentTestSuite, fork_for_tests
 from bot.bot import Bot
 from knowledge.knowledge import Knowledge
 from knowledge.adjective import Adjective
+from knowledge.noun import Noun
 from watson.sentence_tree import trees_from_text 
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
+
+class NounTests(unittest.TestCase):
+	
+	def test_invalid_constructor(self):
+		sentence = "very nice"
+		tree = trees_from_text(sentence)[0]
+		self.assertRaises(TypeError, Noun, tree)
+
+	def test_empty_description(self):
+		noun_word = "pig"
+		sentence = "a nice " + noun_word
+		tree = trees_from_text(sentence)[0]
+		noun = Noun(tree)
+		expected_description = "I don't know anything about " + noun_word
+		description = noun.describe()
+		self.assertEqual(expected_description, description)
+
+	def test_description(self):
+		noun_word = "pig"
+		adj_word1 = "nice"
+		adj_word2 = "not cool"
+		sentence1 = "the only " + noun_word
+		sentence2 = adj_word1
+		sentence3 = "very " + adj_word2
+		noun_tree = trees_from_text(sentence1)[0]
+		adj_tree1 = trees_from_text(sentence2)[0]
+		adj_tree2 = trees_from_text(sentence3)[0]
+		noun = Noun(noun_tree)
+		noun.add_adjective(adj_tree1)
+		noun.add_adjective(adj_tree2)
+		description = noun.describe()
+		self.assertIn(noun_word, description)
+		self.assertIn(adj_word1, description)
+		self.assertIn(adj_word2, description)
+
+
+suite.addTests(loader.loadTestsFromTestCase(NounTests))
 
 class AdjectiveTests(unittest.TestCase):
 
