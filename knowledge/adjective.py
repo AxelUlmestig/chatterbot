@@ -8,6 +8,10 @@ class Adjective:
 		self.negated = tree.is_negated()
 		#self.adverb
 
+	def combine(self, other_adj):
+		#TODO expand
+		return self.__eq__(other_adj)
+
 	def __str__(self):
 		output = self.word
 		if self.negated:
