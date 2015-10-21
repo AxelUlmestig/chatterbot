@@ -6,21 +6,16 @@ def match_pattern(tree):
 	adjective = pt.find_node(tree, pt.match_POS("JJ"))
 	who = pt.find_node(adjective, pt.match_word("who"))
 	if who:
-		return {"adjective": adjective.word}
+		return {"adjective": adjective}
 	return None
 
 def execute_action(knowledge, adjective):
-	people = []
-	for person, adjectives in knowledge.people.items():
-		for person_adj in adjectives:
-			if person_adj.lower() == adjective.lower():
-				people.append(person)
-	
+	people = knowledge.get_noun_adj_matches(adjective)
 	response = "No one."
 	if people:
 		response = ""
 		for index, person in enumerate(people):
-			response += person
+			response += person.word
 			if len(people) - index is 1:
 				response += "."
 			elif len(people) - index is 2:

@@ -1,4 +1,5 @@
 from knowledge.adjective import Adjective
+
 class Noun:
 
 	def __init__(self, noun_tree):
@@ -9,9 +10,9 @@ class Noun:
 		self.adjectives = []
 
 	def add_adjective(self, adjective_tree):
-		new_adj = Adjective(adjective_tree)
+		new_adj = format_adj(adjective_tree)
 		for old_adj in self.adjectives:
-			if new_adj.combine(old_adj):
+			if old_adj.combine(new_adj):
 				return
 		self.adjectives.append(new_adj)
 
@@ -31,9 +32,17 @@ class Noun:
 
 	def combine(self, other_noun):
 		if self.__eq__(other_noun):
-			#TODO implement
+			for adj in other.adjectives:
+				self.add_adjective(adj)
 			return True
 		return False
+
+	def get_adjective_match(self, adjective, strict=None):
+		adjective = format_adj(adjective)
+		for known_adj in self.adjectives:
+			if adjective.__eq__(known_adj, strict):
+				return known_adj
+		return None
 
 	def __eq__(self, other_noun):
 		if is_noun(other_noun):
@@ -43,3 +52,8 @@ def is_noun(tree):
 	if hasattr(tree, "POS"):
 		return tree.POS[0:2] == "NN"
 	return false
+
+def format_adj(adj):
+	if isinstance(adj, Adjective):
+		return adj
+	return Adjective(adj)
