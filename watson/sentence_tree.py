@@ -62,7 +62,7 @@ def _compile_tree_list(trees):
 			parent.add_child(tree)
 	return root
 
-def trees_from_text(text):
+def text_to_trees(text):
 	sentences = call_watson(text)
 	trees = []
 	for sentence in sentences:

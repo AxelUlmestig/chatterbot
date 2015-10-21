@@ -4,7 +4,7 @@ from bot.bot import Bot
 from knowledge.knowledge import Knowledge
 from knowledge.adjective import Adjective
 from knowledge.noun import Noun
-from watson.sentence_tree import trees_from_text 
+from watson.sentence_tree import text_to_trees 
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
@@ -13,13 +13,13 @@ class NounTests(unittest.TestCase):
 	
 	def test_invalid_constructor(self):
 		sentence = "very nice"
-		tree = trees_from_text(sentence)[0]
+		tree = text_to_trees(sentence)[0]
 		self.assertRaises(TypeError, Noun, tree)
 
 	def test_empty_description(self):
 		noun_word = "pig"
 		sentence = "a nice " + noun_word
-		tree = trees_from_text(sentence)[0]
+		tree = text_to_trees(sentence)[0]
 		noun = Noun(tree)
 		expected_description = "I don't know anything about " + noun_word
 		description = noun.describe()
@@ -32,9 +32,9 @@ class NounTests(unittest.TestCase):
 		sentence1 = "the only " + noun_word
 		sentence2 = adj_word1
 		sentence3 = "very " + adj_word2
-		noun_tree = trees_from_text(sentence1)[0]
-		adj_tree1 = trees_from_text(sentence2)[0]
-		adj_tree2 = trees_from_text(sentence3)[0]
+		noun_tree = text_to_trees(sentence1)[0]
+		adj_tree1 = text_to_trees(sentence2)[0]
+		adj_tree2 = text_to_trees(sentence3)[0]
 		noun = Noun(noun_tree)
 		noun.add_adjective(adj_tree1)
 		noun.add_adjective(adj_tree2)
@@ -47,9 +47,9 @@ class NounTests(unittest.TestCase):
 		noun_str = "pig"
 		adj_str1 = "cute"
 		adj_str2 = "not " + adj_str1
-		noun_tree = trees_from_text(noun_str)[0]
-		adj_tree1 = trees_from_text(adj_str1)[0]
-		adj_tree2 = trees_from_text(adj_str2)[0]
+		noun_tree = text_to_trees(noun_str)[0]
+		adj_tree1 = text_to_trees(adj_str1)[0]
+		adj_tree2 = text_to_trees(adj_str2)[0]
 		noun = Noun(noun_tree)
 		adj1 = Adjective(adj_tree1)
 		adj2 = Adjective(adj_tree2)
@@ -61,8 +61,8 @@ class NounTests(unittest.TestCase):
 	def test_get_adjective_match1(self):
 		adj_str = "sweet"
 		noun_str = "pig"
-		adj_tree = trees_from_text(adj_str)[0]
-		noun_tree = trees_from_text(noun_str)[0]
+		adj_tree = text_to_trees(adj_str)[0]
+		noun_tree = text_to_trees(noun_str)[0]
 		adj = Adjective(adj_tree)
 		noun = Noun(noun_tree)
 		noun.add_adjective(adj)
@@ -73,9 +73,9 @@ class NounTests(unittest.TestCase):
 		adj_str1 = "sweet"
 		adj_str2 = "not " + adj_str1
 		noun_str = "pig"
-		adj_tree1 = trees_from_text(adj_str1)[0]
-		adj_tree2 = trees_from_text(adj_str2)[0]
-		noun_tree = trees_from_text(noun_str)[0]
+		adj_tree1 = text_to_trees(adj_str1)[0]
+		adj_tree2 = text_to_trees(adj_str2)[0]
+		noun_tree = text_to_trees(noun_str)[0]
 		adj1 = Adjective(adj_tree1)
 		adj2 = Adjective(adj_tree2)
 		noun = Noun(noun_tree)
@@ -90,22 +90,22 @@ class AdjectiveTests(unittest.TestCase):
 
 	def test_constructor(self):
 		sentence = "nice"
-		tree = trees_from_text(sentence)[0]
+		tree = text_to_trees(sentence)[0]
 		expected_result = sentence
 		adj = Adjective(tree)
 		self.assertEqual(adj.__str__(), expected_result)
 
 	def test_negation(self):
 		sentence = "not nice"
-		tree = trees_from_text(sentence)[0]
+		tree = text_to_trees(sentence)[0]
 		expected_result = sentence
 		adj = Adjective(tree)
 		self.assertEqual(adj.__str__(), expected_result)
 
 	def test_equal_true1(self):
 		sentence = "not nice"
-		tree1 = trees_from_text(sentence)[0]
-		tree2 = trees_from_text(sentence)[0]
+		tree1 = text_to_trees(sentence)[0]
+		tree2 = text_to_trees(sentence)[0]
 		adj1 = Adjective(tree1)
 		adj2 = Adjective(tree2)
 		self.assertEqual(adj1, adj2)
@@ -113,8 +113,8 @@ class AdjectiveTests(unittest.TestCase):
 	def test_equal_true2(self):
 		sentence1 = "not nice"
 		sentence2 = "nice"
-		tree1 = trees_from_text(sentence1)[0]
-		tree2 = trees_from_text(sentence2)[0]
+		tree1 = text_to_trees(sentence1)[0]
+		tree2 = text_to_trees(sentence2)[0]
 		adj1 = Adjective(tree1)
 		adj2 = Adjective(tree2)
 		self.assertEqual(adj1, adj2)
@@ -122,8 +122,8 @@ class AdjectiveTests(unittest.TestCase):
 	def test_not_equal(self):
 		sentence1 = "awesome"
 		sentence2 = "nice"
-		tree1 = trees_from_text(sentence1)[0]
-		tree2 = trees_from_text(sentence2)[0]
+		tree1 = text_to_trees(sentence1)[0]
+		tree2 = text_to_trees(sentence2)[0]
 		adj1 = Adjective(tree1)
 		adj2 = Adjective(tree2)
 		self.assertNotEqual(adj1, adj2)
@@ -131,8 +131,8 @@ class AdjectiveTests(unittest.TestCase):
 	def test_merge_(self):
 		sentence1 = "nice"
 		sentence2 = "not nice"
-		tree1 = trees_from_text(sentence1)[0]
-		tree2 = trees_from_text(sentence2)[0]
+		tree1 = text_to_trees(sentence1)[0]
+		tree2 = text_to_trees(sentence2)[0]
 		adj1 = Adjective(tree1)
 		adj2 = Adjective(tree2)
 		self.assertFalse(adj1.is_negated)
@@ -148,8 +148,8 @@ class KnowledgeTests(unittest.TestCase):
 		knowledge = Knowledge()
 		name = "David"
 		info = "cute"
-		name_tree = trees_from_text(name)[0]
-		info_tree = trees_from_text(info)[0]
+		name_tree = text_to_trees(name)[0]
+		info_tree = text_to_trees(info)[0]
 		knowledge.add_personal_info(name_tree, info_tree)
 		noun = knowledge.get_personal_info(name_tree)
 		description = noun.describe()
@@ -161,8 +161,8 @@ class KnowledgeTests(unittest.TestCase):
 		#knowledge = Knowledge()
 		#name = "David"
 		#info = "cute"
-		#name_tree = trees_from_text(name)[0]
-		#info_tree = trees_from_text(info)[0]
+		#name_tree = text_to_trees(name)[0]
+		#info_tree = text_to_trees(info)[0]
 		#knowledge.add_personal_info(name_tree, info_tree)
 		#knowledge.remove_personal_info(name_tree, info_tree)
 		#name_info = knowledge.get_personal_info(name_tree)
@@ -174,12 +174,12 @@ class SentenceTreeTests(unittest.TestCase):
 
 	def test_is_negated_true(self):
 		text = "not bad"
-		tree = trees_from_text(text)[0]
+		tree = text_to_trees(text)[0]
 		self.assertTrue(tree.is_negated())
 
 	def test_is_negated_false(self):
 		text = "bad"
-		tree = trees_from_text(text)[0]
+		tree = text_to_trees(text)[0]
 		self.assertFalse(tree.is_negated())
 
 suite.addTests(loader.loadTestsFromTestCase(SentenceTreeTests))

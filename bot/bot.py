@@ -1,6 +1,6 @@
 import random
 from knowledge import Knowledge
-from watson import trees_from_text
+from watson import text_to_trees
 from bot.load_patterns import patterns
 
 class Bot:
@@ -9,7 +9,7 @@ class Bot:
 		self.knowledge = Knowledge()
 
 	def tell(self, statement):
-		trees = trees_from_text(statement)
+		trees = text_to_trees(statement)
 		questions = [stmt for stmt in trees if stmt.is_question()]
 		statements = [stmt for stmt in trees if stmt not in questions]
 		if questions:
