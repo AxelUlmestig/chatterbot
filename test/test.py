@@ -389,6 +389,22 @@ class PatternTests(unittest.TestCase):
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
 
+	def test_noun_is_noun_true(self):
+		bot = Bot()
+		bot_input = "David is a pig"
+		expected_response = "Of course."
+		response = bot.tell(bot_input)
+		self.assertEqual(response, expected_response)
+		
+	def test_noun_is_noun_false(self):
+		bot = Bot()
+		bot_input1 = "David is a pig"
+		bot_input2 = "The pig is David"
+		expected_response = "That is impossible."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
 suite.addTests(loader.loadTestsFromTestCase(PatternTests))
 
 def text_to_obj(text, constructor):
