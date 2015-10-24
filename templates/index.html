@@ -3,19 +3,21 @@
 	<head>
 		<title>Chatter bot</title>	
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-		<script src="https://cdn.rawgit.com/Luegg/angularjs-scroll-glue/master/src/scrollglue.js"></script>
 		{% block javascript %}
 		<script type='text/javascript'>
 			{% include 'controller.js' %}	
 		</script>
+		<script type='text/javascript'>
+			{% include 'scrollglue.js' %}	
+		</script>
 		{% endblock %}
-		<!--style type="text/css">
+		<style type="text/css">
 			{% include "styling.css" %}
-		</style-->
+		</style>
 		</head>
 	{% raw %}
-	<body>
-		<div ng-app="botApp" ng-controller="chatController">
+	<body ng-app="botApp" ng-controller="chatController">
+		<!--<div ng-app="botApp" ng-controller="chatController">
 			<div scroll-glue="glued" class="scrollable">
 				<div ng-repeat="message in history track by $index">
 					<p>{{message}}</p>
@@ -25,7 +27,23 @@
 				<input type="text" ng-model="message">
 				<input type="submit" ng-model="message">
 			</form>
-		</div>
+		</div>-->
+
+
+		<section id="chat-box">
+			<div class="wrapper">
+				<div class="message-holder" scroll-glue>
+					<ul class="messages clearfix" ng-repeat="message in history track by $index">
+						<li ng-class-even="'right-message'">{{message}}</li>
+					</ul>
+				</div>
+				<form ng-submit="tell_bot(message)">
+					<input type="text" class="left" ng-model="message" placeholder="Talk to the bot"> 
+					<button class="right">Send</button>
+				</form>
+			</div>
+		</section>
+		<a class="github" href="https://github.com/AxelUlmestig/chatterbot-state">View source code on GitHub</a>
 	</body>
 	{% endraw %}
 </HTML>

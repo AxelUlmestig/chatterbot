@@ -1,4 +1,4 @@
-var app = angular.module('botApp', []);
+var app = angular.module('botApp', ['luegg.directives']);
 app.controller('chatController', function($scope, $http) {
 	$scope.history = ["Bot: Chat with me!"]
 	$scope.message = ""	
@@ -16,7 +16,7 @@ app.controller('chatController', function($scope, $http) {
 		})
 		.then(function(response){
 			bot_response = "Bot: " + response.data
-			$scope.history.push(bot_response)		
+			$scope.history.push(bot_response);	
 		})
 	}
 });
