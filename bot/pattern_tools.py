@@ -13,6 +13,11 @@ def find_node(tree, criteria):
 		return None
 	if criteria(tree):
 		return tree
+	return find_child_node(tree, criteria)
+
+def find_child_node(tree, criteria):
+	if not tree:
+		return None
 	for child in tree.children:
 		descendent_match = find_node(child, criteria)
 		if descendent_match:
