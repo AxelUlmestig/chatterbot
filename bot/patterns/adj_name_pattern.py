@@ -9,7 +9,7 @@ def match_pattern(tree):
 		return None
 
 def execute_action(knowledge, name, adjective, negation):
-	knowledge.add_personal_info(name, adjective)
+	knowledge.add_adj_to_noun(name, adjective)
 	response = "I see."
 	return response
 

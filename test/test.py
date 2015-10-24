@@ -204,13 +204,13 @@ suite.addTests(loader.loadTestsFromTestCase(AdjectiveTests))
 
 class KnowledgeTests(unittest.TestCase):
 
-	def test_add_personal_info(self):
+	def test_add_adj_to_noun(self):
 		knowledge = Knowledge()
 		name = "David"
 		info = "cute"
 		name_tree = text_to_trees(name)[0]
 		info_tree = text_to_trees(info)[0]
-		knowledge.add_personal_info(name_tree, info_tree)
+		knowledge.add_adj_to_noun(name_tree, info_tree)
 		noun = knowledge.get_personal_info(name_tree)
 		description = noun.describe()
 		self.assertIn(info, description)

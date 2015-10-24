@@ -7,7 +7,7 @@ class Knowledge:
 		self.nouns = {}
 		load_initial_knowledge(self)
 
-	def add_personal_info(self, noun, adjective):
+	def add_adj_to_noun(self, noun, adjective):
 		noun_str = noun.word.lower()
 		if noun_str not in self.nouns:
 			self.nouns[noun_str] = Noun(noun)
