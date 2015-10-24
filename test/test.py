@@ -1,10 +1,10 @@
 import unittest
 from concurrencytest import ConcurrentTestSuite, fork_for_tests
 from bot.bot import Bot
-from knowledge.knowledge import Knowledge
-from knowledge.adjective import Adjective
-from knowledge.noun import Noun
-from watson.sentence_tree import text_to_trees 
+from knowledge import Knowledge
+from knowledge import Adjective
+from knowledge import Noun
+from watson import text_to_trees 
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
