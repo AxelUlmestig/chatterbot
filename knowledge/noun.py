@@ -71,8 +71,9 @@ class Noun:
 		return False
 
 	def __eq__(self, other_noun):
-		if is_noun(other_noun):
+		if isinstance(other_noun, Noun):
 			return other_noun.word == self.word
+		return False
 
 def is_noun(tree):
 	if hasattr(tree, "POS"):
