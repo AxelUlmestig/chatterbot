@@ -51,6 +51,8 @@ class Noun:
 			return False
 		if noun.has_super_noun(self):
 			return False
+		if self.has_super_noun(noun):
+			return True
 		nr = NounRelationship(self, noun)
 		self.noun_relationships.append(nr)
 		return True
