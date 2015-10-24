@@ -83,6 +83,66 @@ class NounTests(unittest.TestCase):
 		adj_match = noun.get_adjective_match(adj1)
 		self.assertTrue(adj_match.is_negated)
 
+	def test_add_super_noun_true(self):
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		sub_noun.add_super_noun(super_noun)
+		super_nouns = sub_noun.get_super_nouns()
+		self.assertIn(super_noun, super_nouns)
+		
+	def test_add_super_noun_false1(self):
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		sub_noun.add_super_noun(super_noun)
+		super_nouns = super_noun.get_super_nouns()
+		self.assertNotIn(sub_noun, super_nouns)
+
+	def test_add_super_noun_false2(self):
+		noun_str = "pig"
+		noun = text_to_obj(noun_str, Noun)
+		self.assertFalse(noun.add_super_noun(noun))
+
+	def test_add_noun_false3(self):
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		noun_str3 = "lifeform"
+		noun1 = text_to_obj(noun_str1, Noun)
+		noun2 = text_to_obj(noun_str2, Noun)
+		noun3 = text_to_obj(noun_str3, Noun)
+		noun1.add_super_noun(noun2)
+		noun2.add_super_noun(noun3)
+		self.assertFalse(noun3.add_super_noun(noun1), "circular dependency allowed")
+
+	def test_has_super_noun_true1(self):
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		sub_noun.add_super_noun(super_noun)
+		self.assertTrue(sub_noun.has_super_noun(super_noun))
+
+	def test_has_super_noun_true2(self):
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		noun_str3 = "lifeform"
+		noun1 = text_to_obj(noun_str1, Noun)
+		noun2 = text_to_obj(noun_str2, Noun)
+		noun3 = text_to_obj(noun_str3, Noun)
+		noun1.add_super_noun(noun2)
+		noun2.add_super_noun(noun3)
+		self.assertTrue(noun1.has_super_noun(noun3))
+
+	def test_has_super_noun_false(self):
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		sub_noun.add_super_noun(super_noun)
+		self.assertFalse(super_noun.has_super_noun(super_noun))
 
 suite.addTests(loader.loadTestsFromTestCase(NounTests))
 
@@ -330,6 +390,10 @@ class PatternTests(unittest.TestCase):
 		self.assertEqual(response, expected_response)
 
 suite.addTests(loader.loadTestsFromTestCase(PatternTests))
+
+def text_to_obj(text, constructor):
+	tree = text_to_trees(text)[0]
+	return constructor(tree)
 
 runner = unittest.TextTestRunner()
 concurrent_suite = ConcurrentTestSuite(suite, fork_for_tests(50))
