@@ -17,7 +17,7 @@ def match_pattern2(tree):
 		return {"name": person, "negative_response": "Who is that?"}
 
 def execute_action(knowledge, name, negative_response):
-	person = knowledge.get_personal_info(name)
+	person = knowledge.get_noun(name)
 	if person:
 		return person.describe()
 	return negative_response

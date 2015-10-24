@@ -211,7 +211,7 @@ class KnowledgeTests(unittest.TestCase):
 		name_tree = text_to_trees(name)[0]
 		info_tree = text_to_trees(info)[0]
 		knowledge.add_adj_to_noun(name_tree, info_tree)
-		noun = knowledge.get_personal_info(name_tree)
+		noun = knowledge.get_noun(name_tree)
 		description = noun.describe()
 		self.assertIn(info, description)
 

@@ -14,7 +14,7 @@ class Knowledge:
 		person = self.nouns[noun_str]
 		person.add_adjective(adjective)
 
-	def get_personal_info(self, noun):
+	def get_noun(self, noun):
 		noun_str = noun.word.lower()
 		if noun_str in self.nouns:
 			return self.nouns[noun_str]

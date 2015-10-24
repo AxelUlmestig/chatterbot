@@ -11,7 +11,7 @@ def match_pattern(tree):
 	return None
 
 def execute_action(knowledge, person, adjective):
-	noun = knowledge.get_personal_info(person)
+	noun = knowledge.get_noun(person)
 	if not noun:
 		return "I don't know who {0} is.".format(person.word)
 	adj_match = noun.get_adjective_match(adjective)
