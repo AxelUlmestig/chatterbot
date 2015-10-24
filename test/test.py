@@ -308,14 +308,14 @@ class PatternTests(unittest.TestCase):
 	def test_personal_inquiry1(self):
 		bot = Bot()
 		bot_input = "who is David?"
-		expected_response = "I don't know."
+		expected_response = "I don't know anything about David"
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 
 	def test_personal_inquiry2(self):
 		bot = Bot()
 		bot_input = "tell me about David?"
-		expected_response = "Who is that?"
+		expected_response = "I don't know anything about David"
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 
@@ -376,7 +376,7 @@ class PatternTests(unittest.TestCase):
 	def test_person_adj_inquiry_unknown(self):
 		bot = Bot()
 		bot_input = "is David cute?"
-		expected_response = "I don't know who David is."
+		expected_response = "I don't have that information."
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 

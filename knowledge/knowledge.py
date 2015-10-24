@@ -7,18 +7,15 @@ class Knowledge:
 		self.nouns = {}
 		load_initial_knowledge(self)
 
-	def add_adj_to_noun(self, noun, adjective):
-		noun_str = noun.word.lower()
-		if noun_str not in self.nouns:
-			self.nouns[noun_str] = Noun(noun)
-		person = self.nouns[noun_str]
-		person.add_adjective(adjective)
+	def add_adj_to_noun(self, noun_raw, adjective):
+		noun = self.get_noun(noun_raw)
+		noun.add_adjective(adjective)
 
 	def get_noun(self, noun):
 		noun_str = noun.word.lower()
-		if noun_str in self.nouns:
-			return self.nouns[noun_str]
-		return None
+		if noun_str not in self.nouns:
+			self.nouns[noun_str] = Noun(noun)
+		return self.nouns[noun_str]
 
 	def get_noun_adj_matches(self, adjective, strict=None):
 		matches = []
