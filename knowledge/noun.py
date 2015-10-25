@@ -44,6 +44,10 @@ class Noun:
 		for known_adj in self.adjectives:
 			if adjective.__eq__(known_adj, strict):
 				return known_adj
+		for super_noun in self.get_super_nouns():
+			match = super_noun.get_adjective_match(adjective, strict)
+			if match:
+				return match
 		return None
 
 	def add_super_noun(self, noun):
