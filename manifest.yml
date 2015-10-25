@@ -3,8 +3,8 @@ applications:
   memory: 128M
   instances: 1
   domain: mybluemix.net
-  name: chatterbot-state
-  host: chatterbot-state
+  name: chatterbot
+  host: chatterbot
   disk_quota: 1024M
   services:
   - Relationship Extraction-0y
