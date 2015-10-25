@@ -398,8 +398,8 @@ class PatternTests(unittest.TestCase):
 		
 	def test_noun_is_noun_false(self):
 		bot = Bot()
-		bot_input1 = "David is a pig"
-		bot_input2 = "The pig is David"
+		bot_input1 = "the giraffe is an animal"
+		bot_input2 = "the animal is a giraffe"
 		expected_response = "That is impossible."
 		bot.tell(bot_input1)
 		response = bot.tell(bot_input2)
