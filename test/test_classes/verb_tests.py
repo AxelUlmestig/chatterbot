@@ -20,22 +20,6 @@ class VerbTests(unittest.TestCase):
 			verb = Verb(verb_tree, noun)
 		except TypeError:
 			self.fail("verb constructor threw an exception when given a verb tree")
-			
-	def test_get_actions_true(self):
-		noun = text_to_obj(noun_str1, Noun)
-		verb = text_to_verb(verb_str1, noun_str1)
-		verb_matches = verb_match = Verb.get_actions(noun)
-		nbr_of_verb_matches = len(verb_matches)
-		expected_nbr = 1
-		self.assertEqual(nbr_of_verb_matches, expected_nbr)
-
-	def test_get_actions_false(self):
-		noun = text_to_obj(noun_str2, Noun)
-		verb = text_to_verb(verb_str1, noun_str1)
-		verb_matches = verb_match = Verb.get_actions(noun)
-		nbr_of_verb_matches = len(verb_matches)
-		expected_nbr = 0
-		self.assertEqual(nbr_of_verb_matches, expected_nbr)
 
 def text_to_obj(text, constructor):
 	tree = text_to_trees(text)[0]
