@@ -11,11 +11,19 @@ class Verb:
 		self.object_noun = object_noun
 		Verb.verbs.append(self)
 
+	def __eq__(self, other):
+		if not isinstance(other, Verb):
+			return False
+		if self.word == other.word:
+			if self.subject_noun == other.subject_noun:
+				return self.object_noun == other.object_noun
+		return False
+
 	@staticmethod
 	def get_actions(noun):
 		actions = []
 		for verb in Verb.verbs:
-			if verb.subject_noun is noun:
+			if verb.subject_noun == noun:
 				actions.append(verb)
 		return actions
 	
@@ -25,6 +33,15 @@ class Verb:
 		for verb in Verb.verbs:
 			if verb.object_noun is noun:
 				acted_on.append(verb)
+
+	@staticmethod
+	def get_verbs(verb):
+		verb_matches = []
+		for existing_verb in Verb.verbs:
+			if existing_verb is verb:
+				verb_matches.append(existing_verb)
+		return verb_matches
+
 
 def is_verb_tree(tree):
 	if hasattr(tree, "POS"):
