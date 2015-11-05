@@ -1,6 +1,7 @@
 import unittest
 from watson import text_to_trees
 from knowledge import Knowledge, Noun, Adjective, Verb
+from test.test_util import text_to_obj
 
 proper_noun_str1 = "David"
 proper_noun_str2 = "Alice"
@@ -97,9 +98,5 @@ class KnowledgeTests(unittest.TestCase):
 		expected_acted_on = 0
 		self.assertEqual(nbr_of_acted_on, expected_acted_on)
 
-
-def text_to_obj(text, constructor):
-	tree = text_to_trees(text)[0]
-	return constructor(tree)
 
 test_class = KnowledgeTests

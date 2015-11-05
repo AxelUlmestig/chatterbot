@@ -1,6 +1,7 @@
 import unittest
 from watson import text_to_trees
 from knowledge import Noun, Adjective
+from test.test_util import text_to_obj
 
 class NounTests(unittest.TestCase):
 	
@@ -137,8 +138,5 @@ class NounTests(unittest.TestCase):
 		sub_noun.add_super_noun(super_noun)
 		self.assertFalse(super_noun.has_super_noun(super_noun))
 
-def text_to_obj(text, constructor):
-	tree = text_to_trees(text)[0]
-	return constructor(tree)
 
 test_class = NounTests

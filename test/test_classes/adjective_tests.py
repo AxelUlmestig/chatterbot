@@ -1,6 +1,7 @@
 import unittest
 from watson import text_to_trees
 from knowledge import Noun, Adjective
+from test.test_util import text_to_obj
 
 class AdjectiveTests(unittest.TestCase):
 
@@ -56,8 +57,5 @@ class AdjectiveTests(unittest.TestCase):
 		adj1.combine(adj2)
 		self.assertTrue(adj1.is_negated)
 
-def text_to_obj(text, constructor):
-	tree = text_to_trees(text)[0]
-	return constructor(tree)
 
 test_class = AdjectiveTests

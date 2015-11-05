@@ -2,6 +2,7 @@ import unittest
 from watson import text_to_trees
 from knowledge import Noun, Adjective
 from bot import Bot
+from test.test_util import text_to_obj
 
 class PatternTests(unittest.TestCase):
 	
@@ -153,9 +154,5 @@ class PatternTests(unittest.TestCase):
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
 
-
-def text_to_obj(text, constructor):
-	tree = text_to_trees(text)[0]
-	return constructor(tree)
 
 test_class = PatternTests
