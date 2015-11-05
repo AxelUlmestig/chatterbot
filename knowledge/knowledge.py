@@ -9,6 +9,14 @@ class Knowledge:
 		self.nouns = {}
 		load_initial_knowledge(self)
 
+	def add_noun(self, noun):
+		noun_str = noun.word.lower()
+		if noun_str in self.nouns:
+			existing_noun = self.nouns[noun_str]
+			existing_noun.combine(noun)
+		else:
+			self.nouns[noun_str] = noun
+
 	def add_adj_to_noun(self, noun_raw, adjective):
 		noun = self.get_noun(noun_raw)
 		noun.add_adjective(adjective)
@@ -31,7 +39,10 @@ class Knowledge:
 	def add_verb(self, verb):
 		if not isinstance(verb, Verb):
 			raise TypeError(type(verb) + " is not Verb")
-		self.verbs[verb.word] = verb
+		verb_str = verb.word.lower()
+		if verb_str not in self.verbs:
+			self.verbs[verb_str] = []
+		self.verbs[verb.word].append(verb)
 
 	def get_verb(self, verb_tree):
 		verb_str = verb_tree.word.lower()
@@ -40,7 +51,13 @@ class Knowledge:
 		return None
 
 	def get_actions(self, noun):
-		return [verb for verb_str, verb in self.verbs.items() if verb.get_subject() is noun]
+		verbs = []
+		for verb_str in self.verbs:
+			verbs.extend(self.verbs[verb_str])
+		return [verb for verb in verbs if verb.get_subject() is noun]
 
 	def get_acted_on(self, noun):
-		return [verb for verb_str, verb in self.verbs.items() if verb.get_object() is noun]
+		verbs = []
+		for verb_str in self.verbs:
+			verbs.extend(self.verbs[verb_str])
+		return [verb for verb in verbs if verb.get_object() is noun]
