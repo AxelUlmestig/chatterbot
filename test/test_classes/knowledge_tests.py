@@ -33,7 +33,7 @@ class KnowledgeTests(unittest.TestCase):
 		verb = Verb(verb_tree, noun)
 		knowledge.add_verb(verb)
 		try:
-			stored_verb = knowledge.verbs[verb_tree.word]
+			stored_verb = knowledge.verbs[verb_tree.word][0]
 			self.assertEqual(stored_verb, verb)
 		except:
 			self.fail("verb not added to knowledge verb dict")
@@ -45,8 +45,8 @@ class KnowledgeTests(unittest.TestCase):
 		noun = text_to_obj(noun_tree, Noun)
 		verb = Verb(verb_tree, noun)
 		knowledge.add_verb(verb)
-		stored_verb = knowledge.get_verb(verb_tree)
-		self.assertEqual(stored_verb, verb)
+		stored_verb_matches = knowledge.get_verb(verb_tree)
+		self.assertIn(verb, stored_verb_matches)
 
 	def test_get_actions_true(self):
 		knowledge = Knowledge()
