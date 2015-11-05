@@ -19,9 +19,7 @@ def call_watson(txt):
 	data["txt"] = txt
 	r = requests.post(url, data=data, auth=auth)
 	if r.status_code is not 200:
-		print("error with Watson API")
-		#TODO raise exception
-		pass
+		raise IOError("error connecting to Watson API")
 	pruned = prune_watson_output(r.text)
 	return pruned
 
