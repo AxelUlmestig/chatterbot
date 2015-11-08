@@ -161,11 +161,38 @@ class PatternTests(unittest.TestCase):
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
 
-	def test_noun_verb_inquiry_false(self):
+	def test_noun_verb_inquiry_true1(self):
 		bot = Bot()
 		bot_input1 = "David is running quickly"
 		bot_input2 = "Is David running?"
 		expected_response = "Yes."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
+	def test_noun_verb_inquiry_true2(self):
+		bot = Bot()
+		bot_input1 = "David is hugging a tomato"
+		bot_input2 = "Is David hugging a tomato?"
+		expected_response = "Yes."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
+	def test_noun_verb_inquiry_false1(self):
+		bot = Bot()
+		bot_input1 = "David is running quickly"
+		bot_input2 = "Is David eating?"
+		expected_response = "No."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
+	def test_noun_verb_inquiry_false2(self):
+		bot = Bot()
+		bot_input1 = "David is hugging a tomato"
+		bot_input2 = "Is David hugging a cucumber?"
+		expected_response = "No."
 		bot.tell(bot_input1)
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
