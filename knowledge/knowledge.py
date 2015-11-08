@@ -39,6 +39,9 @@ class Knowledge:
 	def add_verb(self, verb):
 		if not isinstance(verb, Verb):
 			raise TypeError(type(verb) + " is not Verb")
+		self.add_noun(verb.get_subject())
+		if verb.get_object():
+			self.add_noun(verb.get_object())
 		verb_str = verb.word.lower()
 		if verb_str not in self.verbs:
 			self.verbs[verb_str] = []
