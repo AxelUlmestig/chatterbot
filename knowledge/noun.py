@@ -34,7 +34,7 @@ class Noun:
 
 	def combine(self, other_noun):
 		if self.__eq__(other_noun):
-			for adj in other.adjectives:
+			for adj in other_noun.adjectives:
 				self.add_adjective(adj)
 			return True
 		return False
