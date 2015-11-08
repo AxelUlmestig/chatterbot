@@ -48,7 +48,7 @@ class Knowledge:
 		verb_str = verb_tree.word.lower()
 		if verb_str in self.verbs:
 			return self.verbs[verb_str]
-		return None
+		return []
 
 	def get_actions(self, noun):
 		verbs = []
