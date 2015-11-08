@@ -44,20 +44,21 @@ class Knowledge:
 			self.verbs[verb_str] = []
 		self.verbs[verb.word].append(verb)
 
-	def get_verbs(self, verb_tree):
-		verb_str = verb_tree.word.lower()
-		if verb_str in self.verbs:
-			return self.verbs[verb_str]
-		return []
+	def get_verbs(self, verb_tree = None):
+		if verb_tree:
+			verb_str = verb_tree.word.lower()
+			if verb_str in self.verbs:
+				return self.verbs[verb_str]
+			return []
+		all_verbs = []
+		for verb_str in self.verbs:
+			all_verbs.extend(self.verbs[verb_str])
+		return all_verbs
 
 	def get_actions(self, noun):
-		verbs = []
-		for verb_str in self.verbs:
-			verbs.extend(self.verbs[verb_str])
+		verbs = self.get_verbs()
 		return [verb for verb in verbs if verb.get_subject() is noun]
 
 	def get_acted_on(self, noun):
-		verbs = []
-		for verb_str in self.verbs:
-			verbs.extend(self.verbs[verb_str])
+		verbs = self.get_verbs()
 		return [verb for verb in verbs if verb.get_object() is noun]
