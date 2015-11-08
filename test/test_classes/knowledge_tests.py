@@ -45,7 +45,7 @@ class KnowledgeTests(unittest.TestCase):
 		noun = text_to_obj(noun_tree, Noun)
 		verb = Verb(verb_tree, noun)
 		knowledge.add_verb(verb)
-		stored_verb_matches = knowledge.get_verb(verb_tree)
+		stored_verb_matches = knowledge.get_verbs(verb_tree)
 		self.assertIn(verb, stored_verb_matches)
 
 	def test_get_actions_true(self):

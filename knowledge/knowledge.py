@@ -44,7 +44,7 @@ class Knowledge:
 			self.verbs[verb_str] = []
 		self.verbs[verb.word].append(verb)
 
-	def get_verb(self, verb_tree):
+	def get_verbs(self, verb_tree):
 		verb_str = verb_tree.word.lower()
 		if verb_str in self.verbs:
 			return self.verbs[verb_str]
