@@ -2,7 +2,7 @@ import unittest
 from watson import text_to_trees
 from knowledge import Noun, Adjective
 from bot import Bot
-from test.test_util import text_to_obj
+from test.test_util import text_to_obj, execute_test_class
 
 class PatternTests(unittest.TestCase):
 	
@@ -154,5 +154,21 @@ class PatternTests(unittest.TestCase):
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
 
+	def test_noun_verb(self):
+		bot = Bot()
+		bot_input = "David is running quickly"
+		expected_response = "Interesting."
+		response = bot.tell(bot_input)
+		self.assertEqual(response, expected_response)
+
+	def test_noun_verb_inquiry_false(self):
+		bot = Bot()
+		bot_input1 = "David is running quickly"
+		bot_input2 = "Is David running?"
+		expected_response = "Yes."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
 
 test_class = PatternTests
+
