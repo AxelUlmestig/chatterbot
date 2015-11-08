@@ -1,7 +1,7 @@
 import unittest
 from watson import text_to_trees
 from knowledge import Noun, Adjective
-from test.test_util import text_to_obj
+from test.test_util import text_to_obj, execute_test_class
 
 class NounTests(unittest.TestCase):
 	
@@ -140,3 +140,6 @@ class NounTests(unittest.TestCase):
 
 
 test_class = NounTests
+
+if __name__ is "__main__":
+	execute_test_class(test_class)

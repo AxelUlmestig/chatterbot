@@ -1,7 +1,7 @@
 import unittest
 from watson import text_to_trees
 from knowledge import Noun, Adjective, Verb
-from test.test_util import text_to_obj, text_to_verb
+from test.test_util import text_to_obj, text_to_verb, execute_test_class
 
 verb_str1 = "running quickly"
 verb_str2 = "eating slowly"
@@ -23,3 +23,6 @@ class VerbTests(unittest.TestCase):
 			self.fail("verb constructor threw an exception when given a verb tree")
 
 test_class = VerbTests
+
+if __name__ is "__main__":
+	execute_test_class(test_class)

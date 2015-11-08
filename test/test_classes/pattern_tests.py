@@ -172,3 +172,5 @@ class PatternTests(unittest.TestCase):
 
 test_class = PatternTests
 
+if __name__ is "__main__":
+	execute_test_class(test_class)

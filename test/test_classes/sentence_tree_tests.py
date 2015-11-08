@@ -1,6 +1,7 @@
 import unittest
 from watson import text_to_trees
 from knowledge import Noun, Adjective
+from test.test_util import execute_test_class
 
 class SentenceTreeTests(unittest.TestCase):
 
@@ -19,3 +20,6 @@ def text_to_obj(text, constructor):
 	return constructor(tree)
 
 test_class = SentenceTreeTests
+
+if __name__ is "__main__":
+	execute_test_class(test_class)
