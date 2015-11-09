@@ -45,7 +45,7 @@ class AdjectiveTests(unittest.TestCase):
 		adj2 = Adjective(tree2)
 		self.assertNotEqual(adj1, adj2)
 
-	def test_merge_(self):
+	def test_combine1(self):
 		sentence1 = "nice"
 		sentence2 = "not nice"
 		tree1 = text_to_trees(sentence1)[0]
@@ -56,6 +56,13 @@ class AdjectiveTests(unittest.TestCase):
 		self.assertTrue(adj2.is_negated)
 		adj1.combine(adj2)
 		self.assertTrue(adj1.is_negated)
+
+	def test_combine2(self):
+		sentence = "nice"
+		tree = text_to_trees(sentence)[0]
+		adj1 = Adjective(tree)
+		adj2 = Adjective(tree)
+		self.assertTrue(adj1.combine(adj2))
 
 
 test_class = AdjectiveTests
