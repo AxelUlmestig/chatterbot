@@ -38,7 +38,8 @@ class Knowledge:
 		return matches
 
 	def get_super_nouns(self, noun):
-		return [rs.super_noun for rs in self.noun_relationships if rs.sub_noun is noun]
+		super_relations = [rs for rs in self.noun_relationships if rs.relationship is NounRelationship.SUBSET]
+		return [rs.super_noun for rs in super_relations if rs.sub_noun is noun]
 
 	def has_super_noun(self, sub_noun, super_noun):
 		super_nouns = self.get_super_nouns(sub_noun)
@@ -58,7 +59,7 @@ class Knowledge:
 			return False
 		self.add_noun(sub_noun)
 		self.add_noun(super_noun)
-		relationship = NounRelationship(sub_noun, super_noun)
+		relationship = NounRelationship(sub_noun, super_noun, NounRelationship.SUBSET)
 		self.noun_relationships.append(relationship)
 		return True
 
@@ -93,9 +94,12 @@ class Knowledge:
 		return [verb for verb in verbs if verb.get_object() is noun]
 
 class NounRelationship:
-	def __init__(self, sub_noun, super_noun):
+	SUBSET = "subset"
+
+	def __init__(self, sub_noun, super_noun, relationship):
 		self.sub_noun = sub_noun
 		self.super_noun = super_noun
+		self.relationship = relationship
 
 	def matches(sub_noun, super_noun):
 		if sub_noun is self.sub_noun:
