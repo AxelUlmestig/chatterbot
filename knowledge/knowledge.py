@@ -7,10 +7,11 @@ class Knowledge:
 	def __init__(self):
 		self.verbs = {}
 		self.nouns = {}
+		self.noun_relationships = []
 		load_initial_knowledge(self)
 
 	def add_noun(self, noun):
-		noun_str = noun.word.lower()
+		noun_str = noun.word
 		if noun_str in self.nouns:
 			existing_noun = self.nouns[noun_str]
 			existing_noun.combine(noun)
@@ -35,6 +36,31 @@ class Knowledge:
 				if not strict or (adjective.is_negated and current_adj.is_negated):
 					matches.append(noun)
 		return matches
+
+	def get_super_nouns(self, noun):
+		return [rs.super_noun for rs in self.noun_relationships if rs.sub_noun is noun]
+
+	def has_super_noun(self, sub_noun, super_noun):
+		super_nouns = self.get_super_nouns(sub_noun)
+		if super_noun in super_nouns:
+			return True
+		for super_noun_old in super_nouns:
+			if self.has_super_noun(super_noun_old, super_noun):
+				return True
+		return False
+
+	def set_super_noun(self, sub_noun, super_noun):
+		if sub_noun is super_noun:
+			return False
+		if self.has_super_noun(sub_noun, super_noun):
+			return False
+		if self.has_super_noun(super_noun, sub_noun):
+			return False
+		self.add_noun(sub_noun)
+		self.add_noun(super_noun)
+		relationship = NounRelationship(sub_noun, super_noun)
+		self.noun_relationships.append(relationship)
+		return True
 
 	def add_verb(self, verb):
 		if not isinstance(verb, Verb):
@@ -65,3 +91,13 @@ class Knowledge:
 	def get_acted_on(self, noun):
 		verbs = self.get_verbs()
 		return [verb for verb in verbs if verb.get_object() is noun]
+
+class NounRelationship:
+	def __init__(self, sub_noun, super_noun):
+		self.sub_noun = sub_noun
+		self.super_noun = super_noun
+
+	def matches(sub_noun, super_noun):
+		if sub_noun is self.sub_noun:
+			return super_noun is self.super_noun
+		return False
