@@ -98,6 +98,77 @@ class KnowledgeTests(unittest.TestCase):
 		expected_acted_on = 0
 		self.assertEqual(nbr_of_acted_on, expected_acted_on)
 
+	def test_add_super_noun_true(self):
+		knowledge = Knowledge()
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		knowledge.set_super_noun(sub_noun, super_noun)
+		super_nouns = knowledge.get_super_nouns(sub_noun)
+		self.assertIn(super_noun, super_nouns)
+		
+	def test_add_super_noun_false1(self):
+		knowledge = Knowledge()
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		knowledge.set_super_noun(sub_noun, super_noun)
+		super_nouns = knowledge.get_super_nouns(super_noun)
+		self.assertNotIn(sub_noun, super_nouns)
+
+	def test_add_super_noun_false2(self):
+		knowledge = Knowledge()
+		noun_str = "pig"
+		noun = text_to_obj(noun_str, Noun)
+		self.assertFalse(knowledge.set_super_noun(noun, noun))
+
+	def test_add_noun_false3(self):
+		knowledge = Knowledge()
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		noun_str3 = "lifeform"
+		noun1 = text_to_obj(noun_str1, Noun)
+		noun2 = text_to_obj(noun_str2, Noun)
+		noun3 = text_to_obj(noun_str3, Noun)
+		knowledge.set_super_noun(noun1, noun2)
+		knowledge.set_super_noun(noun2, noun3)
+		self.assertFalse(knowledge.set_super_noun(noun3, noun1))
+
+	def test_has_super_noun_true1(self):
+		knowledge = Knowledge()
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		knowledge.set_super_noun(sub_noun, super_noun)
+		self.assertTrue(knowledge.has_super_noun(sub_noun, super_noun))
+
+	def test_has_super_noun_true2(self):
+		knowledge = Knowledge()
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		noun_str3 = "lifeform"
+		noun1 = text_to_obj(noun_str1, Noun)
+		noun2 = text_to_obj(noun_str2, Noun)
+		noun3 = text_to_obj(noun_str3, Noun)
+		knowledge.set_super_noun(noun1, noun2)
+		knowledge.set_super_noun(noun2, noun3)
+		self.assertTrue(knowledge.has_super_noun(noun1, noun3))
+
+	def test_has_super_noun_false(self):
+		knowledge = Knowledge()
+		noun_str1 = "pig"
+		noun_str2 = "animal"
+		sub_noun = text_to_obj(noun_str1, Noun)
+		super_noun = text_to_obj(noun_str2, Noun)
+		knowledge.set_super_noun(sub_noun, super_noun)
+		self.assertFalse(knowledge.has_super_noun(super_noun, super_noun))
+
+
+
+
 
 test_class = KnowledgeTests
 
