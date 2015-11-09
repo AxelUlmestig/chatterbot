@@ -2,8 +2,6 @@ from knowledge.adjective import Adjective
 
 class Noun:
 
-	noun_relationships = []
-
 	def __init__(self, noun_tree):
 		if not is_noun(noun_tree):
 			raise TypeError
@@ -49,30 +47,6 @@ class Noun:
 			if match:
 				return match
 		return None
-
-	def add_super_noun(self, noun):
-		if noun is self:
-			return False
-		if noun.has_super_noun(self):
-			return False
-		if self.has_super_noun(noun):
-			return True
-		nr = NounRelationship(self, noun)
-		self.noun_relationships.append(nr)
-		return True
-	
-	def get_super_nouns(self):
-		super_nouns = [relationship.super_noun for relationship in self.noun_relationships if relationship.sub_noun is self]
-		return super_nouns
-
-	def has_super_noun(self, noun):
-		super_nouns = self.get_super_nouns()
-		if noun in super_nouns:
-			return True
-		for super_noun in super_nouns:
-			if super_noun.has_super_noun(noun):
-				return True
-		return False
 
 	def __eq__(self, other_noun):
 		if isinstance(other_noun, Noun):
