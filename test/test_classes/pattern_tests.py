@@ -154,12 +154,20 @@ class PatternTests(unittest.TestCase):
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
 
-	def test_noun_verb(self):
+	def test_noun_verb1(self):
 		bot = Bot()
 		bot_input = "David is running quickly"
 		expected_response = "Interesting."
 		response = bot.tell(bot_input)
 		self.assertEqual(response, expected_response)
+
+	def test_noun_verb2(self):
+		bot = Bot()
+		bot_input = "David is running quickly"
+		bot.tell(bot_input)
+		verbs = bot.knowledge.get_verbs()
+		verb = verbs[0]
+		self.assertEqual(verb.word, "running")
 
 	def test_noun_verb_inquiry_true1(self):
 		bot = Bot()
