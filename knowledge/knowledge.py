@@ -23,7 +23,7 @@ class Knowledge:
 		noun.add_adjective(adjective)
 
 	def get_noun(self, noun_tree):
-		noun_str = noun_tree.word.lower()
+		noun_str = noun_tree.word
 		if noun_str not in self.nouns:
 			self.nouns[noun_str] = Noun(noun_tree)
 		return self.nouns[noun_str]
@@ -36,6 +36,17 @@ class Knowledge:
 				if not strict or (adjective.is_negated and current_adj.is_negated):
 					matches.append(noun)
 		return matches
+
+	def get_adjective_match(self, noun, adj, strict=None):
+		match = noun.get_adjective_match(adj, strict)
+		if match:
+			return match
+		super_nouns = self.get_super_nouns(noun)
+		for super_noun in super_nouns:
+			super_match = super_noun.get_adjective_match(adj, strict)
+			if super_match:
+				return super_match
+		return None
 
 	def get_super_nouns(self, noun):
 		super_relations = [rs for rs in self.noun_relationships if rs.relationship is NounRelationship.SUBSET]

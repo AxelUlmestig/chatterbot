@@ -14,7 +14,7 @@ def execute_action(knowledge, person, adjective):
 	noun = knowledge.get_noun(person)
 	if not noun:
 		return "I don't know who {0} is.".format(person.word)
-	adj_match = noun.get_adjective_match(adjective)
+	adj_match = knowledge.get_adjective_match(noun, adjective)
 	if not adj_match:
 		return "I don't have that information."
 	if adj_match.is_negated:

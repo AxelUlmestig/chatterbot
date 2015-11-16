@@ -13,7 +13,7 @@ def match_pattern(tree):
 def execute_action(knowledge, super_noun, sub_noun):
 	sub_noun_existing = knowledge.get_noun(sub_noun)
 	super_noun_existing = knowledge.get_noun(super_noun)
-	if sub_noun_existing.add_super_noun(super_noun_existing):
+	if knowledge.set_super_noun(sub_noun_existing, super_noun_existing):
 		return "Of course."
 	return "That is impossible."
 	
