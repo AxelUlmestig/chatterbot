@@ -205,6 +205,40 @@ class PatternTests(unittest.TestCase):
 		response = bot.tell(bot_input2)
 		self.assertEqual(response, expected_response)
 
+	def test_noun_verb_inquiry_who_no_obj_match(self):
+		bot = Bot()
+		bot_input1 = "David is hugging a tomato"
+		bot_input2 = "Who is hugging?"
+		expected_response = "David."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
+	def test_noun_verb_inquiry_who_no_obj_no_match(self):
+		bot = Bot()
+		bot_input1 = "Who is running?"
+		expected_response = "No one."
+		response = bot.tell(bot_input1)
+		self.assertEqual(response, expected_response)
+
+	def test_noun_verb_inquiry_who_obj_match(self):
+		bot = Bot()
+		bot_input1 = "David is eating a giraffe"
+		bot_input2 = "Who is eating a giraffe?"
+		expected_response = "David."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
+	def test_noun_verb_inquiry_who_obj_no_match(self):
+		bot = Bot()
+		bot_input1 = "David is eating a giraffe"
+		bot_input2 = "Who is eating a cake?"
+		expected_response = "No one."
+		bot.tell(bot_input1)
+		response = bot.tell(bot_input2)
+		self.assertEqual(response, expected_response)
+
 test_class = PatternTests
 
 if __name__ is "__main__":
