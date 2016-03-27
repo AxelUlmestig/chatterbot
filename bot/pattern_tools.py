@@ -17,11 +17,11 @@ def find_node(tree, criteria, strict=None):
 		return None
 	return find_child_node(tree, criteria)
 
-def find_child_node(tree, criteria):
+def find_child_node(tree, criteria, strict=None):
 	if not tree:
 		return None
 	for child in tree.children:
-		descendent_match = find_node(child, criteria)
+		descendent_match = find_node(child, criteria, strict)
 		if descendent_match:
 			return descendent_match
 	return None
