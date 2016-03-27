@@ -8,11 +8,13 @@ def create_pattern(execute_action, *match_patterns):
 		return None
 	return match_template
 
-def find_node(tree, criteria):
+def find_node(tree, criteria, strict=None):
 	if not tree:
 		return None
 	if criteria(tree):
 		return tree
+	if strict:
+		return None
 	return find_child_node(tree, criteria)
 
 def find_child_node(tree, criteria):
